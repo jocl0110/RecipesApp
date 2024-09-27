@@ -1,35 +1,64 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+import NavBar from "./components/NavBar/NavBar";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [ingredient, setIngredient] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [recipes, setRecipes] = useState([]);
+
+  const handleChange = (e) => {
+    setIngredient(e.target.value);
+  };
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setLoading(true);
+    setTimeout(async () => {
+      try {
+        const res = await fetch(
+          `https://forkify-api.herokuapp.com/api/v2/recipes?search=${ingredient}`
+        );
+
+        const data = await res.json();
+        if (data.data.recipes) {
+          setRecipes(data.data.recipes);
+          setLoading(false);
+          setIngredient("");
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }, 2000);
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <NavBar />
+      <form onSubmit={handleSubmit}>
+        <input
+          value={ingredient}
+          type="text"
+          placeholder="Enter ingredient..."
+          onChange={handleChange}
+        />
+      </form>
+      <ul>
+        {recipes && recipes.length > 0 ? (
+          recipes.map((dataItem) => (
+            <li>
+              {dataItem.title}
+              <img
+                style={{ width: "100px", height: "auto" }}
+                src={dataItem.image_url}
+              />
+            </li>
+          ))
+        ) : (
+          <div>{loading && <p>Loading...</p>}</div>
+        )}
+      </ul>
+    </div>
+  );
 }
 
-export default App
+export default App;
