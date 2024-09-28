@@ -1,11 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
+import Recipe from "./components/RecipeItem/Recipe";
 
 function App() {
   const [ingredient, setIngredient] = useState("");
   const [loading, setLoading] = useState(false);
   const [recipes, setRecipes] = useState([]);
+  const [isFavorite, setFavorite] = useState(false);
+
+  useEffect(() => {
+    const savedRecipes = localStorage.getItem("recipes");
+    if (recipes && recipes.length == 0) {
+      setRecipes(JSON.parse(savedRecipes));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (recipes && recipes.length > 0) {
+      localStorage.setItem("recipes", JSON.stringify(recipes));
+    }
+  }, [recipes]);
 
   const handleChange = (e) => {
     setIngredient(e.target.value);
@@ -24,6 +39,7 @@ function App() {
           setRecipes(data.data.recipes);
           setLoading(false);
           setIngredient("");
+          console.log(data);
         }
       } catch (e) {
         console.log(e);
@@ -38,25 +54,24 @@ function App() {
         <input
           value={ingredient}
           type="text"
-          placeholder="Enter ingredient..."
+          placeholder="Enter an ingredient..."
           onChange={handleChange}
         />
       </form>
-      <ul>
-        {recipes && recipes.length > 0 ? (
-          recipes.map((dataItem) => (
-            <li>
-              {dataItem.title}
-              <img
-                style={{ width: "100px", height: "auto" }}
-                src={dataItem.image_url}
-              />
-            </li>
-          ))
-        ) : (
-          <div>{loading && <p>Loading...</p>}</div>
-        )}
-      </ul>
+      {loading ? (
+        <div>
+          <p>Loading</p>
+          <div className="spinner">
+            <div className="rect1"></div>
+            <div className="rect2"></div>
+            <div className="rect3"></div>
+            <div className="rect4"></div>
+            <div className="rect5"></div>
+          </div>
+        </div>
+      ) : (
+        <Recipe recipes={recipes} loading={loading} />
+      )}
     </div>
   );
 }
