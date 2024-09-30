@@ -1,3 +1,14 @@
+ul.recipe-card {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  list-style-type: none;
+}
+ul.recipe-card > li {
+  margin: 20px;
+  padding: 20px;
+}
+
 .spinner {
   margin: 100px auto;
   width: 50px;
