@@ -8,6 +8,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [recipes, setRecipes] = useState([]);
   const [isFavorite, setFavorite] = useState(false);
+  const [visibleRecipes, setVisibleRecipes] = useState(9);
 
   useEffect(() => {
     const savedRecipes = localStorage.getItem("recipes");
@@ -24,6 +25,17 @@ function App() {
 
   const handleChange = (e) => {
     setIngredient(e.target.value);
+  };
+
+  const handleShowMore = () => {
+    if (visibleRecipes + 9 >= recipes.length) {
+      if (visibleRecipes == recipes.length) {
+        setVisibleRecipes(recipes.length);
+      }
+      setVisibleRecipes(9);
+    } else {
+      setVisibleRecipes(visibleRecipes + 9);
+    }
   };
   async function handleSubmit(event) {
     event.preventDefault();
@@ -48,7 +60,7 @@ function App() {
   }
 
   return (
-    <div>
+    <main className="">
       <NavBar />
       <form onSubmit={handleSubmit}>
         <input
@@ -70,9 +82,16 @@ function App() {
           </div>
         </div>
       ) : (
-        <Recipe recipes={recipes} loading={loading} />
+        <Recipe
+          recipes={recipes}
+          loading={loading}
+          visibleRecipes={visibleRecipes}
+        />
       )}
-    </div>
+      {recipes.length > 6 && !loading && (
+        <button onClick={handleShowMore}>Show More</button>
+      )}
+    </main>
   );
 }
 

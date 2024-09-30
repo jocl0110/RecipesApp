@@ -1,21 +1,23 @@
-const Recipe = ({ loading, recipes }) => {
+import { useState } from "react";
+
+const Recipe = ({ loading, recipes, visibleRecipes }) => {
   return (
-    <ul>
-      {recipes ? (
-        recipes.map((dataItem) => (
+    <ul className="recipe-card">
+      {recipes && recipes.length > 0 ? (
+        recipes.slice(0, visibleRecipes).map((dataItem) => (
           <li key={dataItem.id}>
             <img
-              style={{ width: "100px", height: "auto" }}
+              alt={dataItem.title}
+              className="recipe-img"
+              style={{ width: "200px", height: "200px" }}
               src={dataItem.image_url}
             />
-            <p>{dataItem.publisher}</p>
-            <p>{dataItem.title}</p>
+            <p className="recipe-publisher">{dataItem.publisher}</p>
+            <p className="recipe-title">{dataItem.title}</p>
           </li>
         ))
       ) : (
-        <div>
-          {!loading && <p>Nothing to show. Please search an ingredient</p>}
-        </div>
+        <p>Nothing to show. Please search an ingredient</p>
       )}
     </ul>
   );
