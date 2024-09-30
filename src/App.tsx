@@ -8,7 +8,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [recipes, setRecipes] = useState([]);
   const [isFavorite, setFavorite] = useState(false);
-  const [visibleRecipes, setVisibleRecipes] = useState(9);
+  const [visibleRecipes, setVisibleRecipes] = useState(8);
 
   useEffect(() => {
     const savedRecipes = localStorage.getItem("recipes");
@@ -28,13 +28,13 @@ function App() {
   };
 
   const handleShowMore = () => {
-    if (visibleRecipes + 9 >= recipes.length) {
+    if (visibleRecipes + 8 >= recipes.length) {
       if (visibleRecipes == recipes.length) {
         setVisibleRecipes(recipes.length);
       }
-      setVisibleRecipes(9);
+      setVisibleRecipes(8);
     } else {
-      setVisibleRecipes(visibleRecipes + 9);
+      setVisibleRecipes(visibleRecipes + 8);
     }
   };
   async function handleSubmit(event) {
@@ -63,7 +63,11 @@ function App() {
     <main className="">
       <NavBar />
       <form onSubmit={handleSubmit}>
+        <label htmlFor="search">Search:</label>
         <input
+          id="search"
+          autoFocus={true}
+          className="search-input"
           value={ingredient}
           type="text"
           placeholder="Enter an ingredient..."
@@ -88,7 +92,7 @@ function App() {
           visibleRecipes={visibleRecipes}
         />
       )}
-      {recipes.length > 6 && !loading && (
+      {recipes.length > 8 && !loading && (
         <button onClick={handleShowMore}>Show More</button>
       )}
     </main>
