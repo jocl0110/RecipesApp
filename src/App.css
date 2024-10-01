@@ -30,12 +30,12 @@ body {
   list-style: none;
 }
 .navbar > ul > li.links {
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin-left: 20px;
 }
 li > h1 {
   flex-grow: 1;
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   text-align: center;
 }
 
@@ -46,19 +46,19 @@ form {
   justify-content: center;
 }
 label {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-style: italic;
   margin-bottom: 100px;
 }
 .search-input {
-  width: 80%;
+  width: 50%;
   height: 50px;
   border: none;
   border-radius: 20px;
   background-color: #fff;
   margin: 20px 0px 120px 5px;
   padding-left: 20px;
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: #333;
 }
 
@@ -90,7 +90,8 @@ ul.recipe-container > li > img.recipe-img {
   display: flex;
 }
 .recipe-description > p {
-  margin: 10px;
+  margin: 15px;
+  font-size: 1rem;
 }
 .details-btn {
   border-radius: 10px;
@@ -99,6 +100,18 @@ ul.recipe-container > li > img.recipe-img {
   cursor: pointer;
   width: 40%;
   height: 30px;
+}
+#favorite-btn {
+  background-color: #333;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.favorite {
+  color: gold;
+}
+.not-favorite {
+  color: white;
+  border: 1px solid black;
 }
 
 /* Spinner */
