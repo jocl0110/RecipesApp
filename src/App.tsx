@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 import Recipe from "./components/RecipeItem/Recipe";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import RecipeDetails from "./components/RecipeDetails/RecipeDetails";
 
 function App() {
   const [ingredient, setIngredient] = useState("");
@@ -60,42 +62,52 @@ function App() {
   }
 
   return (
-    <main className="">
+    <Router>
       <NavBar />
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="search">Search:</label>
-        <input
-          id="search"
-          autoFocus={true}
-          className="search-input"
-          value={ingredient}
-          type="text"
-          placeholder="Enter an ingredient..."
-          onChange={handleChange}
-        />
-      </form>
-      {loading ? (
-        <div>
-          <p>Loading</p>
-          <div className="spinner">
-            <div className="rect1"></div>
-            <div className="rect2"></div>
-            <div className="rect3"></div>
-            <div className="rect4"></div>
-            <div className="rect5"></div>
-          </div>
-        </div>
-      ) : (
-        <Recipe
-          recipes={recipes}
-          loading={loading}
-          visibleRecipes={visibleRecipes}
-        />
-      )}
-      {recipes.length > 8 && !loading && (
-        <button onClick={handleShowMore}>Show More</button>
-      )}
-    </main>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <main>
+              <form onSubmit={handleSubmit}>
+                <label htmlFor="search">Search:</label>
+                <input
+                  id="search"
+                  autoFocus={true}
+                  className="search-input"
+                  value={ingredient}
+                  type="text"
+                  placeholder="Enter an ingredient..."
+                  onChange={handleChange}
+                />
+              </form>
+              {loading ? (
+                <div>
+                  <p>Loading</p>
+                  <div className="spinner">
+                    <div className="rect1"></div>
+                    <div className="rect2"></div>
+                    <div className="rect3"></div>
+                    <div className="rect4"></div>
+                    <div className="rect5"></div>
+                  </div>
+                </div>
+              ) : (
+                <Recipe
+                  isFavorite={isFavorite}
+                  recipes={recipes}
+                  loading={loading}
+                  visibleRecipes={visibleRecipes}
+                />
+              )}
+              {recipes.length > 8 && !loading && (
+                <button onClick={handleShowMore}>Show More</button>
+              )}
+            </main>
+          }
+        ></Route>
+      </Routes>
+    </Router>
   );
 }
 
