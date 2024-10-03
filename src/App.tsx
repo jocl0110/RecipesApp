@@ -2,12 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 import Recipe from "./components/RecipeItem/Recipe";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Favorites from "./components/Favorites/Favorites";
 import RecipeDetails from "./components/RecipeDetails/RecipeDetails";
 
