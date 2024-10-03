@@ -1,25 +1,17 @@
 import { AiFillStar } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
-const Recipe = ({ recipes, isFavorite, setFavorite, visibleRecipes }) => {
+const Recipe = ({
+  recipes,
+  isFavorite,
+  setFavorite,
+  visibleRecipes,
+  handleIsFavorite,
+}) => {
   console.log(isFavorite);
   const navigate = useNavigate();
   const handleRecipeDetails = (id) => {
     navigate(`/recipe-item/${id}`);
-  };
-
-  const handleIsFavorite = (getCurrentItem) => {
-    console.log(getCurrentItem);
-    let favoriteCopy = [...isFavorite];
-    const index = favoriteCopy.findIndex(
-      (item) => item.id === getCurrentItem.id
-    );
-    if (index === -1) {
-      favoriteCopy.push(getCurrentItem);
-    } else {
-      favoriteCopy.splice(index, 1);
-    }
-    setFavorite(favoriteCopy);
   };
 
   return (

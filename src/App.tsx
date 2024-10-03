@@ -68,6 +68,20 @@ function App() {
     }, 2000);
   }
 
+  const handleIsFavorite = (getCurrentItem) => {
+    console.log(getCurrentItem);
+    let favoriteCopy = [...isFavorite];
+    const index = favoriteCopy.findIndex(
+      (item) => item.id === getCurrentItem.id
+    );
+    if (index === -1) {
+      favoriteCopy.push(getCurrentItem);
+    } else {
+      favoriteCopy.splice(index, 1);
+    }
+    setFavorite(favoriteCopy);
+  };
+
   return (
     <Router>
       <NavBar />
@@ -105,6 +119,7 @@ function App() {
                   recipes={recipes}
                   setFavorite={setFavorite}
                   visibleRecipes={visibleRecipes}
+                  handleIsFavorite={handleIsFavorite}
                 />
               )}
               {recipes.length > 8 && !loading && (
@@ -115,9 +130,22 @@ function App() {
         ></Route>
         <Route
           path="/favorites"
-          element={<Favorites isFavorite={isFavorite} />}
+          element={
+            <Favorites
+              isFavorite={isFavorite}
+              handleIsFavorite={handleIsFavorite}
+            />
+          }
         ></Route>
-        <Route path="/recipe-item/:id" element={<RecipeDetails />}></Route>
+        <Route
+          path="/recipe-item/:id"
+          element={
+            <RecipeDetails
+              isFavorite={isFavorite}
+              handleIsFavorite={handleIsFavorite}
+            />
+          }
+        ></Route>
       </Routes>
     </Router>
   );
