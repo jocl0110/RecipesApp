@@ -1,10 +1,17 @@
 import { AiFillStar } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
-const Recipe = ({ loading, recipes, visibleRecipes, isFavorite }) => {
+const Recipe = ({ recipes, visibleRecipes, isFavorite, setFavorite }) => {
   const navigate = useNavigate();
-  const handleDetailsClick = (id) => {
-    navigate(`/recipe/${id}`);
+  const handleRecipeDetails = () => {
+    console.log("Hello");
+  };
+
+  const handleIsFavorite = (id) => {
+    setFavorite((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
   };
   return (
     <ul className="recipe-container">
@@ -24,11 +31,9 @@ const Recipe = ({ loading, recipes, visibleRecipes, isFavorite }) => {
             <AiFillStar
               id="favorite-btn"
               className={isFavorite ? "favorite" : "not-favorite"}
+              onClick={() => handleIsFavorite(dataItem.id)}
             />
-            <button
-              className="details-btn"
-              onClick={() => handleDetailsClick(dataItem.id)}
-            >
+            <button className="details-btn" onClick={handleRecipeDetails}>
               Recipe Details
             </button>
           </li>
