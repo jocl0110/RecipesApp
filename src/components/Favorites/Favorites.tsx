@@ -21,7 +21,9 @@ const Favorites = ({ isFavorite, handleIsFavorite, handleRecipeDetails }) => {
               <AiFillStar
                 id="favorite-btn"
                 className={
-                  isFavorite[dataItem.id] ? "favorite" : "not-favorite"
+                  isFavorite.some((item) => item.id === dataItem.id)
+                    ? "favorite"
+                    : "not-favorite"
                 }
                 onClick={() => handleIsFavorite(dataItem)}
               />

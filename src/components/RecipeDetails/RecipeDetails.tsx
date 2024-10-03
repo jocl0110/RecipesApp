@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 
-const RecipeDetails = () => {
+const RecipeDetails = ({ isFavorite, handleIsFavorite }) => {
   const { id } = useParams();
   const [recipeDetails, setRecipeDetails] = useState(null);
   useEffect(() => {
@@ -33,7 +33,15 @@ const RecipeDetails = () => {
         ))}
       </ul>
       <p>Number of servings: {recipeDetails?.servings}</p>
-      <AiFillStar id="favorite-btn" />
+      <AiFillStar
+        id="favorite-btn"
+        className={
+          isFavorite.some((item) => item.id === recipeDetails?.id)
+            ? "favorite"
+            : "not-favorite"
+        }
+        onClick={() => handleIsFavorite(recipeDetails)}
+      />
     </div>
   );
 };
