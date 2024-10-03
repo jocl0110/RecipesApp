@@ -1,18 +1,27 @@
 import { AiFillStar } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
-const Recipe = ({ recipes, visibleRecipes, isFavorite, setFavorite }) => {
+const Recipe = ({ recipes, isFavorite, setFavorite, visibleRecipes }) => {
+  console.log(isFavorite);
   const navigate = useNavigate();
-  const handleRecipeDetails = () => {
-    console.log("Hello");
+  const handleRecipeDetails = (id) => {
+    navigate(`/recipe-item/${id}`);
   };
 
-  const handleIsFavorite = (id) => {
-    setFavorite((prevState) => ({
-      ...prevState,
-      [id]: !prevState[id],
-    }));
+  const handleIsFavorite = (getCurrentItem) => {
+    console.log(getCurrentItem);
+    let favoriteCopy = [...isFavorite];
+    const index = favoriteCopy.findIndex(
+      (item) => item.id === getCurrentItem.id
+    );
+    if (index === -1) {
+      favoriteCopy.push(getCurrentItem);
+    } else {
+      favoriteCopy.splice(index, 1);
+    }
+    setFavorite(favoriteCopy);
   };
+
   return (
     <ul className="recipe-container">
       {recipes && recipes.length > 0 ? (
@@ -30,10 +39,17 @@ const Recipe = ({ recipes, visibleRecipes, isFavorite, setFavorite }) => {
             </div>
             <AiFillStar
               id="favorite-btn"
-              className={isFavorite ? "favorite" : "not-favorite"}
-              onClick={() => handleIsFavorite(dataItem.id)}
+              className={
+                isFavorite.some((item) => item.id === dataItem.id)
+                  ? "favorite"
+                  : "not-favorite"
+              }
+              onClick={() => handleIsFavorite(dataItem)}
             />
-            <button className="details-btn" onClick={handleRecipeDetails}>
+            <button
+              className="details-btn"
+              onClick={() => handleRecipeDetails(dataItem.id)}
+            >
               Recipe Details
             </button>
           </li>
