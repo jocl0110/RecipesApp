@@ -2,14 +2,20 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 import Recipe from "./components/RecipeItem/Recipe";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import Favorites from "./components/Favorites/Favorites";
+import RecipeDetails from "./components/RecipeDetails/RecipeDetails";
 
 function App() {
   const [ingredient, setIngredient] = useState("");
   const [loading, setLoading] = useState(false);
   const [recipes, setRecipes] = useState([]);
-  const [isFavorite, setFavorite] = useState({});
+  const [isFavorite, setFavorite] = useState([]);
   const [visibleRecipes, setVisibleRecipes] = useState(8);
 
   useEffect(() => {
@@ -42,6 +48,7 @@ function App() {
   async function handleSubmit(event) {
     event.preventDefault();
     setLoading(true);
+    setIngredient("");
     setTimeout(async () => {
       try {
         const res = await fetch(
@@ -96,8 +103,8 @@ function App() {
                 <Recipe
                   isFavorite={isFavorite}
                   recipes={recipes}
-                  visibleRecipes={visibleRecipes}
                   setFavorite={setFavorite}
+                  visibleRecipes={visibleRecipes}
                 />
               )}
               {recipes.length > 8 && !loading && (
@@ -106,7 +113,11 @@ function App() {
             </main>
           }
         ></Route>
-        <Route path="/favorites" element={<Favorites />}></Route>
+        <Route
+          path="/favorites"
+          element={<Favorites isFavorite={isFavorite} />}
+        ></Route>
+        <Route path="/recipe-item/:id" element={<RecipeDetails />}></Route>
       </Routes>
     </Router>
   );
