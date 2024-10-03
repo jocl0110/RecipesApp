@@ -3,13 +3,13 @@ import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 import Recipe from "./components/RecipeItem/Recipe";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import RecipeDetails from "./components/RecipeDetails/RecipeDetails";
+import Favorites from "./components/Favorites/Favorites";
 
 function App() {
   const [ingredient, setIngredient] = useState("");
   const [loading, setLoading] = useState(false);
   const [recipes, setRecipes] = useState([]);
-  const [isFavorite, setFavorite] = useState(false);
+  const [isFavorite, setFavorite] = useState({});
   const [visibleRecipes, setVisibleRecipes] = useState(8);
 
   useEffect(() => {
@@ -96,8 +96,8 @@ function App() {
                 <Recipe
                   isFavorite={isFavorite}
                   recipes={recipes}
-                  loading={loading}
                   visibleRecipes={visibleRecipes}
+                  setFavorite={setFavorite}
                 />
               )}
               {recipes.length > 8 && !loading && (
@@ -106,6 +106,7 @@ function App() {
             </main>
           }
         ></Route>
+        <Route path="/favorites" element={<Favorites />}></Route>
       </Routes>
     </Router>
   );
