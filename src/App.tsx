@@ -11,17 +11,34 @@ import {
 import Favorites from "./components/Favorites/Favorites";
 import RecipeDetails from "./components/RecipeDetails/RecipeDetails";
 
+interface Ingredient {
+  quantity: number | null;
+  description: string;
+}
+
+interface RecipeType {
+  id: string;
+  title: string;
+  publisher: string;
+  image_url: string;
+  ingredients: Ingredient[];
+  servings: number;
+  cooking_time: number;
+}
+
 function App() {
-  const [ingredient, setIngredient] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [recipes, setRecipes] = useState([]);
-  const [isFavorite, setFavorite] = useState([]);
-  const [visibleRecipes, setVisibleRecipes] = useState(8);
+  const [ingredient, setIngredient] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [recipes, setRecipes] = useState<RecipeType[]>([]);
+  const [isFavorite, setFavorite] = useState<RecipeType[]>([]);
+  const [visibleRecipes, setVisibleRecipes] = useState<number>(8);
 
   useEffect(() => {
     const savedRecipes = localStorage.getItem("recipes");
     if (recipes && recipes.length == 0) {
-      setRecipes(JSON.parse(savedRecipes));
+      if (savedRecipes) {
+        setRecipes(JSON.parse(savedRecipes));
+      }
     }
   }, []);
 
@@ -31,7 +48,7 @@ function App() {
     }
   }, [recipes]);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIngredient(e.target.value);
   };
 
@@ -45,7 +62,7 @@ function App() {
       setVisibleRecipes(visibleRecipes + 8);
     }
   };
-  async function handleSubmit(event) {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
     setIngredient("");
@@ -66,9 +83,9 @@ function App() {
         console.log(e);
       }
     }, 2000);
-  }
+  };
 
-  const handleIsFavorite = (getCurrentItem) => {
+  const handleIsFavorite = (getCurrentItem: RecipeType) => {
     console.log(getCurrentItem);
     let favoriteCopy = [...isFavorite];
     const index = favoriteCopy.findIndex(
@@ -82,8 +99,13 @@ function App() {
     setFavorite(favoriteCopy);
   };
 
+  const navigate = useNavigate();
+  const handleRecipeDetails = (id: string) => {
+    navigate(`/recipe-item/${id}`);
+  };
+
   return (
-    <Router>
+    <div>
       <NavBar />
       <Routes>
         <Route
@@ -120,6 +142,7 @@ function App() {
                   setFavorite={setFavorite}
                   visibleRecipes={visibleRecipes}
                   handleIsFavorite={handleIsFavorite}
+                  handleRecipeDetails={handleRecipeDetails}
                 />
               )}
               {recipes.length > 8 && !loading && (
@@ -134,6 +157,7 @@ function App() {
             <Favorites
               isFavorite={isFavorite}
               handleIsFavorite={handleIsFavorite}
+              handleRecipeDetails={handleRecipeDetails}
             />
           }
         ></Route>
@@ -147,7 +171,7 @@ function App() {
           }
         ></Route>
       </Routes>
-    </Router>
+    </div>
   );
 }
 

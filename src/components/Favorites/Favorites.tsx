@@ -1,6 +1,31 @@
 import { AiFillStar } from "react-icons/ai";
 
-const Favorites = ({ isFavorite, handleIsFavorite, handleRecipeDetails }) => {
+interface Ingredient {
+  quantity: number | null;
+  description: string;
+}
+
+interface RecipeType {
+  id: string;
+  title: string;
+  publisher: string;
+  image_url: string;
+  ingredients: Ingredient[];
+  servings: number;
+  cooking_time: number;
+}
+
+interface FavoritesProps {
+  isFavorite: RecipeType[];
+  handleIsFavorite: (recipe: RecipeType) => void;
+  handleRecipeDetails: (getCurrentItem: string) => void;
+}
+
+const Favorites: React.FC<FavoritesProps> = ({
+  isFavorite,
+  handleIsFavorite,
+  handleRecipeDetails,
+}) => {
   return (
     <div>
       <h1>Favorite Recipes</h1>
