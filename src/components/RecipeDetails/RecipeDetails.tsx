@@ -1,10 +1,33 @@
 import { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-const RecipeDetails = ({ isFavorite, handleIsFavorite }) => {
+interface Ingredient {
+  quantity: number | null;
+  description: string;
+}
+
+interface Recipe {
+  id: string;
+  title: string;
+  publisher: string;
+  image_url: string;
+  ingredients: Ingredient[];
+  servings: number;
+  cooking_time: number;
+}
+
+interface RecipeDetailsProps {
+  isFavorite: Recipe[];
+  handleIsFavorite: (recipe: Recipe) => void;
+}
+
+const RecipeDetails: React.FC<RecipeDetailsProps> = ({
+  isFavorite,
+  handleIsFavorite,
+}) => {
   const { id } = useParams();
-  const [recipeDetails, setRecipeDetails] = useState(null);
+  const [recipeDetails, setRecipeDetails] = useState<Recipe | null>(null);
   useEffect(() => {
     async function getDetails() {
       const res = await fetch(
@@ -21,27 +44,36 @@ const RecipeDetails = ({ isFavorite, handleIsFavorite }) => {
 
   return (
     <div className="container">
-      <img src={recipeDetails?.image_url} />
-      <h3>{recipeDetails?.title}</h3>
-      <h3>{recipeDetails?.publisher}</h3>
-      <ul>
-        <h3>Ingredients</h3>
-        {recipeDetails?.ingredients.map((ingredient, index) => (
-          <li key={index}>
-            <span>{ingredient.quantity}</span> {ingredient.description}
-          </li>
-        ))}
-      </ul>
-      <p>Number of servings: {recipeDetails?.servings}</p>
-      <AiFillStar
-        id="favorite-btn"
-        className={
-          isFavorite.some((item) => item.id === recipeDetails?.id)
-            ? "favorite"
-            : "not-favorite"
-        }
-        onClick={() => handleIsFavorite(recipeDetails)}
-      />
+      {recipeDetails ? (
+        <div>
+          <img src={recipeDetails?.image_url} />
+          <h3>{recipeDetails?.title}</h3>
+          <h3>{recipeDetails?.publisher}</h3>
+          <ul>
+            <h3>Ingredients</h3>
+            {recipeDetails?.ingredients.map(
+              (ingredient: Ingredient, index: number) => (
+                <li key={index}>
+                  <span>{ingredient?.quantity}</span> {ingredient?.description}
+                </li>
+              )
+            )}
+          </ul>
+          <p>Number of servings: {recipeDetails?.servings}</p>
+          <p>Cooking Time: {recipeDetails?.cooking_time} min</p>
+          <AiFillStar
+            id="favorite-btn"
+            className={
+              isFavorite.some((item) => item.id === recipeDetails?.id)
+                ? "favorite"
+                : "not-favorite"
+            }
+            onClick={() => handleIsFavorite(recipeDetails)}
+          />
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 };

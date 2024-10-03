@@ -1,18 +1,37 @@
 import { AiFillStar } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
 
-const Recipe = ({
+interface Ingredient {
+  quantity: number | null;
+  description: string;
+}
+
+interface RecipeType {
+  id: string;
+  title: string;
+  publisher: string;
+  image_url: string;
+  ingredients: Ingredient[];
+  servings: number;
+  cooking_time: number;
+}
+
+interface RecipeProps {
+  recipes: RecipeType[];
+  isFavorite: RecipeType[];
+  setFavorite: React.Dispatch<React.SetStateAction<RecipeType[]>>;
+  visibleRecipes: number;
+  handleIsFavorite: (recipe: RecipeType) => void;
+  handleRecipeDetails: (getCurrentItem: string) => void;
+}
+
+const Recipe: React.FC<RecipeProps> = ({
   recipes,
   isFavorite,
-  setFavorite,
   visibleRecipes,
   handleIsFavorite,
+  handleRecipeDetails,
 }) => {
   console.log(isFavorite);
-  const navigate = useNavigate();
-  const handleRecipeDetails = (id) => {
-    navigate(`/recipe-item/${id}`);
-  };
 
   return (
     <ul className="recipe-container">
