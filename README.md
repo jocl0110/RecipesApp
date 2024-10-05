@@ -1,30 +1,18 @@
-# React + TypeScript + Vite
+🍴 Recipes App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The Recipes App is a web application built with React that allows users to search for recipes by ingredients, view recipe details, and save their favorite recipes. The app fetches recipes from the Forkify API, and provides a smooth user experience for browsing, searching, and managing favorite recipes.
 
-Currently, two official plugins are available:
+Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Recipe Search: Search for recipes using ingredients.
+Recipe Details: View detailed information about a selected recipe, including cooking time, servings, and ingredients.
+Favorites: Save your favorite recipes to a favorites list, stored in local storage.
+Responsive Design: The app is fully responsive, making it usable on all screen sizes.
+Loading State: Shows a spinner while recipes are being fetched.
+Pagination: Show more or fewer recipes with "Show More" and "Show Less" buttons.
+Technologies Used
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+React: A JavaScript library for building user interfaces.
+React Router: For navigating between pages and components.
+CSS: Custom styles for layout and design.
+Forkify API: Used to fetch recipe data.
