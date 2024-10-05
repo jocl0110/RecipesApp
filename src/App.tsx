@@ -5,6 +5,7 @@ import Recipe from "./components/RecipeItem/Recipe";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Favorites from "./components/Favorites/Favorites";
 import RecipeDetails from "./components/RecipeDetails/RecipeDetails";
+import Form from "./components/Form/Form";
 
 interface Ingredient {
   quantity: number | null;
@@ -35,27 +36,33 @@ function App() {
         setRecipes(JSON.parse(savedRecipes));
       }
     }
+    const savedFavorites = localStorage.getItem("favorites");
+    if (isFavorite && isFavorite.length == 0) {
+      if (savedFavorites) {
+        setFavorite(JSON.parse(savedFavorites));
+      }
+    }
   }, []);
 
   useEffect(() => {
-    if (recipes && recipes.length > 0) {
+    if (recipes.length > 0) {
       localStorage.setItem("recipes", JSON.stringify(recipes));
     }
-  }, [recipes]);
+    if (isFavorite.length > 0) {
+      localStorage.setItem("favorites", JSON.stringify(isFavorite));
+    }
+  }, [recipes, isFavorite]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIngredient(e.target.value);
   };
 
   const handleShowMore = () => {
-    if (visibleRecipes + 8 >= recipes.length) {
-      if (visibleRecipes == recipes.length) {
-        setVisibleRecipes(recipes.length);
-      }
-      setVisibleRecipes(8);
-    } else {
-      setVisibleRecipes(visibleRecipes + 8);
-    }
+    setVisibleRecipes((prev) => Math.min(prev + 8, recipes.length));
+  };
+
+  const handleShowLess = () => {
+    setVisibleRecipes((prev) => Math.max(prev - 8, 8));
   };
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -72,10 +79,14 @@ function App() {
           setRecipes(data.data.recipes);
           setLoading(false);
           setIngredient("");
-          console.log(data);
+        } else {
+          console.log("No recipes found");
         }
       } catch (e) {
         console.log(e);
+      } finally {
+        setLoading(false);
+        setIngredient("");
       }
     }, 2000);
   };
@@ -106,19 +117,14 @@ function App() {
         <Route
           path="/"
           element={
-            <main>
-              <form onSubmit={handleSubmit}>
-                <label htmlFor="search">Search:</label>
-                <input
-                  id="search"
-                  autoFocus={true}
-                  className="search-input"
-                  value={ingredient}
-                  type="text"
-                  placeholder="Enter an ingredient..."
-                  onChange={handleChange}
+            <>
+              {
+                <Form
+                  handleSubmit={handleSubmit}
+                  ingredient={ingredient}
+                  handleChange={handleChange}
                 />
-              </form>
+              }
               {loading ? (
                 <div>
                   <p>Loading</p>
@@ -140,10 +146,27 @@ function App() {
                   handleRecipeDetails={handleRecipeDetails}
                 />
               )}
-              {recipes.length > 8 && !loading && (
-                <button onClick={handleShowMore}>Show More</button>
-              )}
-            </main>
+              {recipes.length > 0 ? (
+                <div className="buttons">
+                  {!loading && recipes.length > 0 && (
+                    <button
+                      onClick={handleShowMore}
+                      disabled={visibleRecipes >= recipes.length}
+                    >
+                      Show More
+                    </button>
+                  )}
+                  {!loading && recipes.length > 0 && (
+                    <button
+                      onClick={handleShowLess}
+                      disabled={visibleRecipes === 8}
+                    >
+                      Show Less
+                    </button>
+                  )}
+                </div>
+              ) : null}
+            </>
           }
         ></Route>
         <Route
@@ -162,6 +185,8 @@ function App() {
             <RecipeDetails
               isFavorite={isFavorite}
               handleIsFavorite={handleIsFavorite}
+              loading={loading}
+              setLoading={setLoading}
             />
           }
         ></Route>

@@ -20,16 +20,20 @@ interface Recipe {
 interface RecipeDetailsProps {
   isFavorite: Recipe[];
   handleIsFavorite: (recipe: Recipe) => void;
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const RecipeDetails: React.FC<RecipeDetailsProps> = ({
   isFavorite,
   handleIsFavorite,
+  setLoading,
 }) => {
   const { id } = useParams();
   const [recipeDetails, setRecipeDetails] = useState<Recipe | null>(null);
   useEffect(() => {
     async function getDetails() {
+      setLoading(true);
       const res = await fetch(
         `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
       );
@@ -40,6 +44,9 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
       }
     }
     getDetails();
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
   }, [id]);
 
   return (
