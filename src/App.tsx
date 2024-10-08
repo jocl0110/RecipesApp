@@ -40,6 +40,8 @@ function App() {
     if (isFavorite && isFavorite.length == 0) {
       if (savedFavorites) {
         setFavorite(JSON.parse(savedFavorites));
+      } else {
+        localStorage.removeItem("favorites");
       }
     }
   }, []);
@@ -103,6 +105,9 @@ function App() {
       favoriteCopy.splice(index, 1);
     }
     setFavorite(favoriteCopy);
+    if (favoriteCopy.length === 0) {
+      localStorage.removeItem("favorites");
+    }
   };
 
   const navigate = useNavigate();
