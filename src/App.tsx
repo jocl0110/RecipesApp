@@ -132,7 +132,7 @@ function App() {
               }
               {loading ? (
                 <div>
-                  <p>Loading</p>
+                  <p className="loading">Loading</p>
                   <div className="spinner">
                     <div className="rect1"></div>
                     <div className="rect2"></div>
@@ -152,9 +152,12 @@ function App() {
                 />
               )}
               {recipes.length > 0 ? (
-                <div className="buttons">
+                <div className="handleShow">
                   {!loading && recipes.length > 0 && (
                     <button
+                      className={`show-btn ${
+                        visibleRecipes >= recipes.length ? "disabled" : ""
+                      }`}
                       onClick={handleShowMore}
                       disabled={visibleRecipes >= recipes.length}
                     >
@@ -163,6 +166,9 @@ function App() {
                   )}
                   {!loading && recipes.length > 0 && (
                     <button
+                      className={`show-btn ${
+                        visibleRecipes === 8 ? "disabled" : ""
+                      }`}
                       onClick={handleShowLess}
                       disabled={visibleRecipes === 8}
                     >

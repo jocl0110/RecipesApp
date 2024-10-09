@@ -1,3 +1,4 @@
+import "./index.css";
 interface FormProps {
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   ingredient: string;

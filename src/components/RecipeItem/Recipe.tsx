@@ -1,4 +1,5 @@
 import { AiFillStar } from "react-icons/ai";
+import "./index.css";
 
 interface Ingredient {
   quantity: number | null;
@@ -48,21 +49,23 @@ const Recipe: React.FC<RecipeProps> = ({
                 <strong>{dataItem.publisher}</strong> - {dataItem.title}
               </p>
             </div>
-            <AiFillStar
-              id="favorite-btn"
-              className={
-                isFavorite.some((item) => item.id === dataItem.id)
-                  ? "favorite"
-                  : "not-favorite"
-              }
-              onClick={() => handleIsFavorite(dataItem)}
-            />
-            <button
-              className="details-btn"
-              onClick={() => handleRecipeDetails(dataItem.id)}
-            >
-              Recipe Details
-            </button>
+            <div className="buttons">
+              <AiFillStar
+                id="favorite-btn"
+                className={
+                  isFavorite.some((item) => item.id === dataItem.id)
+                    ? "favorite"
+                    : "not-favorite"
+                }
+                onClick={() => handleIsFavorite(dataItem)}
+              />
+              <button
+                className="details-btn"
+                onClick={() => handleRecipeDetails(dataItem.id)}
+              >
+                Recipe Details
+              </button>
+            </div>
           </li>
         ))
       ) : (

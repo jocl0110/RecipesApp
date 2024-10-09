@@ -1,0 +1,22 @@
+/* Search Input */
+form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+label {
+  font-size: 1.5rem;
+  font-style: italic;
+  margin-bottom: 100px;
+  margin-right: 5px;
+}
+.search-input {
+  width: 50%;
+  height: 50px;
+  border: none;
+  border-radius: 20px;
+  background-color: #fff;
+  margin: 20px 0px 120px 5px;
+  padding-left: 25px;
+  font-size: 1.25rem;
+}

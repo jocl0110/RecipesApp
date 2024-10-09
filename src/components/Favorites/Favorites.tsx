@@ -1,4 +1,5 @@
 import { AiFillStar } from "react-icons/ai";
+import "./index.css";
 
 interface Ingredient {
   quantity: number | null;
@@ -29,9 +30,13 @@ const Favorites: React.FC<FavoritesProps> = ({
   return (
     <div>
       <h1>Favorite Recipes</h1>
-      <ul className="recipe-container">
-        {isFavorite && isFavorite.length > 0 ? (
-          isFavorite.map((dataItem) => (
+      {isFavorite.length === 0 ? (
+        <p className="empty-message">
+          Nothing to show. Please add a recipe to your favorites section.
+        </p>
+      ) : (
+        <ul className="recipe-container">
+          {isFavorite.map((dataItem) => (
             <li key={dataItem.id} className="recipe-card">
               <img
                 alt={dataItem.title}
@@ -59,11 +64,9 @@ const Favorites: React.FC<FavoritesProps> = ({
                 Recipe Details
               </button>
             </li>
-          ))
-        ) : (
-          <p>Nothing to show. Please search an ingredient</p>
-        )}
-      </ul>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

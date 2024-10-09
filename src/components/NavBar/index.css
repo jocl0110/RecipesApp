@@ -1,0 +1,45 @@
+/* NavBar Styles */
+.navbar {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 60px;
+  background-color: #fff;
+  box-shadow: 0px 0px 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+.navbar > ul {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navbar > ul > li.links {
+  font-size: 1.5rem;
+}
+li > h1 {
+  cursor: pointer;
+  color: #ff8c42;
+  flex-grow: 1;
+  font-size: 2.5rem;
+  text-align: center;
+}
+li > h1:hover {
+  transition: all 0.3s ease-in-out;
+  transform: scale(1.1);
+}
+li > a {
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+li > a:hover {
+  color: #ff8c42;
+  transition: all 0.3s ease-in-out;
+  transform: scale(1.1);
+}
