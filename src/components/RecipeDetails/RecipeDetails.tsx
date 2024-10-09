@@ -79,7 +79,7 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
           />
         </div>
       ) : (
-        <p>Loading...</p>
+        <p className="loading">Loading...</p>
       )}
     </div>
   );
