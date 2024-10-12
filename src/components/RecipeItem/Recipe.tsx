@@ -36,7 +36,7 @@ const Recipe: React.FC<RecipeProps> = ({
 
   return (
     <ul className="recipe-container">
-      {recipes && recipes.length > 0 ? (
+      {recipes.length > 0 ? (
         recipes.slice(0, visibleRecipes).map((dataItem) => (
           <li key={dataItem.id} className="recipe-card">
             <img
@@ -69,7 +69,9 @@ const Recipe: React.FC<RecipeProps> = ({
           </li>
         ))
       ) : (
-        <p>Nothing to show. Please search an ingredient</p>
+        <p className="nothing-p">
+          Nothing to show. Please search an ingredient
+        </p>
       )}
     </ul>
   );

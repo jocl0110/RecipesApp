@@ -3,8 +3,12 @@ ul.recipe-container {
   display: grid;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  min-height: 40vh;
   list-style-type: none;
+  justify-items: center;
+  align-items: center;
 }
+
 ul.recipe-container > li {
   background-color: rgb(255, 249, 243, 0.6);
   border-radius: 10px;
@@ -13,10 +17,16 @@ ul.recipe-container > li {
 }
 
 ul.recipe-container > li > img.recipe-img {
+  display: flex;
   margin: auto;
   border-radius: 10px;
   width: 70%;
   height: 200px;
+}
+ul.recipe-container > li > img.recipe-img:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: all 0.3s ease-in-out;
 }
 .recipe-card {
   display: flex;
@@ -49,6 +59,14 @@ ul.recipe-container > li > img.recipe-img {
 .details-btn:hover {
   transform: scale(1.1);
   transition: all 0.3s ease;
+}
+.nothing-p {
+  font-size: 2rem;
+  grid-column: 1 / -1; /* Hace que ocupe todo el ancho del grid */
+  text-align: center;
+  margin: auto;
+  justify-self: center;
+  align-self: center;
 }
 #favorite-btn {
   font-size: 4rem;

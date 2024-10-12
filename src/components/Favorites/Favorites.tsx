@@ -48,21 +48,23 @@ const Favorites: React.FC<FavoritesProps> = ({
                   <strong>{dataItem.publisher}</strong> - {dataItem.title}
                 </p>
               </div>
-              <AiFillStar
-                id="favorite-btn"
-                className={
-                  isFavorite.some((item) => item.id === dataItem.id)
-                    ? "favorite"
-                    : "not-favorite"
-                }
-                onClick={() => handleIsFavorite(dataItem)}
-              />
-              <button
-                className="details-btn"
-                onClick={() => handleRecipeDetails(dataItem.id)}
-              >
-                Recipe Details
-              </button>
+              <div className="buttons">
+                <AiFillStar
+                  id="favorite-btn"
+                  className={
+                    isFavorite.some((item) => item.id === dataItem.id)
+                      ? "favorite"
+                      : "not-favorite"
+                  }
+                  onClick={() => handleIsFavorite(dataItem)}
+                />
+                <button
+                  className="details-btn"
+                  onClick={() => handleRecipeDetails(dataItem.id)}
+                >
+                  Recipe Details
+                </button>
+              </div>
             </li>
           ))}
         </ul>

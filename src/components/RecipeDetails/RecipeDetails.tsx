@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { useParams } from "react-router-dom";
+import "./index.css";
 
 interface Ingredient {
   quantity: number | null;
@@ -52,11 +53,33 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
   return (
     <div className="container">
       {recipeDetails ? (
-        <div>
-          <img src={recipeDetails?.image_url} />
-          <h3>{recipeDetails?.title}</h3>
-          <h3>{recipeDetails?.publisher}</h3>
-          <ul>
+        <div className="recipe-container">
+          <div className="header">
+            <h3>
+              {recipeDetails?.title} - {recipeDetails?.publisher}
+            </h3>
+
+            <img
+              className="img"
+              src={recipeDetails?.image_url}
+              alt={recipeDetails.title}
+            />
+            <div className="cooking-details">
+              <p>Number of servings: {recipeDetails?.servings}</p>
+              <p>Cooking Time: {recipeDetails?.cooking_time} min</p>
+              <AiFillStar
+                id="favorite-btn"
+                className={
+                  isFavorite.some((item) => item.id === recipeDetails?.id)
+                    ? "favorite"
+                    : "not-favorite"
+                }
+                onClick={() => handleIsFavorite(recipeDetails)}
+              />
+            </div>
+          </div>
+
+          <ul className="ingredients">
             <h3>Ingredients</h3>
             {recipeDetails?.ingredients.map(
               (ingredient: Ingredient, index: number) => (
@@ -66,17 +89,6 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
               )
             )}
           </ul>
-          <p>Number of servings: {recipeDetails?.servings}</p>
-          <p>Cooking Time: {recipeDetails?.cooking_time} min</p>
-          <AiFillStar
-            id="favorite-btn"
-            className={
-              isFavorite.some((item) => item.id === recipeDetails?.id)
-                ? "favorite"
-                : "not-favorite"
-            }
-            onClick={() => handleIsFavorite(recipeDetails)}
-          />
         </div>
       ) : (
         <p className="loading">Loading...</p>
