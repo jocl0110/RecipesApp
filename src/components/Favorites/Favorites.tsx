@@ -29,7 +29,7 @@ const Favorites: React.FC<FavoritesProps> = ({
 }) => {
   return (
     <div>
-      <h1>Favorite Recipes</h1>
+      <h1 className="favorite-header">Favorite Recipes</h1>
       {isFavorite.length === 0 ? (
         <p className="empty-message">
           Nothing to show. Please add a recipe to your favorites section.

@@ -94,7 +94,6 @@ function App() {
   };
 
   const handleIsFavorite = (getCurrentItem: RecipeType) => {
-    console.log(getCurrentItem);
     let favoriteCopy = [...isFavorite];
     const index = favoriteCopy.findIndex(
       (item) => item.id === getCurrentItem.id

@@ -82,3 +82,9 @@ ul.recipe-container > li > img.recipe-img:hover {
 .not-favorite {
   color: #333;
 }
+
+@media screen and (max-width: 450px) {
+  .nothing-p {
+    font-size: 1rem;
+  }
+}

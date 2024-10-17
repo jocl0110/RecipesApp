@@ -32,8 +32,6 @@ const Recipe: React.FC<RecipeProps> = ({
   handleIsFavorite,
   handleRecipeDetails,
 }) => {
-  console.log(isFavorite);
-
   return (
     <ul className="recipe-container">
       {recipes.length > 0 ? (
@@ -43,6 +41,7 @@ const Recipe: React.FC<RecipeProps> = ({
               alt={dataItem.title}
               className="recipe-img"
               src={dataItem.image_url}
+              onClick={() => handleRecipeDetails(dataItem.id)}
             />
             <div className="recipe-description">
               <p>
