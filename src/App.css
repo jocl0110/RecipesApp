@@ -10,11 +10,6 @@ body {
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 
-.loading {
-  font-size: 4rem;
-  text-align: center;
-  margin: auto;
-}
 .handleShow {
   margin: 40px;
   display: flex;
@@ -38,13 +33,16 @@ body {
   transition: none;
   transform: none;
 }
+.loading {
+  font-size: 4rem;
+  text-align: center;
+  margin: auto;
+}
 
 /* Spinner */
 .spinner {
-  margin: 100px auto;
-  width: 50px;
-  height: 40px;
   text-align: center;
+  height: 40px;
   font-size: 4rem;
 }
 
@@ -99,5 +97,16 @@ body {
   20% {
     transform: scaleY(1);
     -webkit-transform: scaleY(1);
+  }
+}
+
+/* Media Queries */
+
+@media screen and (max-width: 450px) {
+  .loading {
+    font-size: 2rem;
+  }
+  .spinner {
+    font-size: 2rem;
   }
 }

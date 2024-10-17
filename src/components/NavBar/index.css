@@ -43,3 +43,18 @@ li > a:hover {
   transition: all 0.3s ease-in-out;
   transform: scale(1.1);
 }
+
+/* Media Queries */
+@media screen and (max-width: 460px) {
+  .header > h1 {
+    font-size: 2rem;
+  }
+}
+@media screen and (max-width: 390px) {
+  .header > h1 {
+    font-size: 1.2rem;
+  }
+  .links > a {
+    font-size: 1.2rem;
+  }
+}
