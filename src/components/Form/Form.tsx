@@ -1,3 +1,4 @@
+import { FaMagnifyingGlass } from "react-icons/fa6";
 import "./index.css";
 interface FormProps {
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
@@ -22,6 +23,9 @@ const Form: React.FC<FormProps> = ({
         placeholder="Enter an ingredient..."
         onChange={handleChange}
       />
+      <button type="submit" className="search-button">
+        <FaMagnifyingGlass onSubmit={handleSubmit} />
+      </button>
     </form>
   );
 };
