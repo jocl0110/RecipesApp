@@ -24,7 +24,7 @@ const Form: React.FC<FormProps> = ({
         onChange={handleChange}
       />
       <button type="submit" className="search-button">
-        <FaMagnifyingGlass onSubmit={handleSubmit} />
+        <FaMagnifyingGlass />
       </button>
     </form>
   );
