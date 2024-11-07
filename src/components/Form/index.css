@@ -3,12 +3,13 @@ form {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: row;
 }
 label {
   font-size: 1.5rem;
   font-style: italic;
-  margin-bottom: 100px;
-  margin-right: 5px;
+  margin-right: 10px;
+  margin-bottom: 4rem;
 }
 .search-input {
   width: 50%;
@@ -16,11 +17,22 @@ label {
   border: none;
   border-radius: 20px;
   background-color: #fff;
-  margin: 20px 0px 120px 5px;
+  margin-bottom: 4rem;
   padding-left: 25px;
   font-size: 1.25rem;
 }
-
+.search-button {
+  font-size: 30px;
+  border: none;
+  cursor: pointer;
+  background: none;
+  margin-bottom: 3.5rem;
+  margin-left: 1rem;
+}
+.search-button:hover {
+  transform: scale(1.2);
+  transition: all 0.3s ease-in-out;
+}
 /* Media Queries */
 
 @media screen and (max-width: 450px) {
