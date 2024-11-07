@@ -17,6 +17,7 @@ label {
   border: none;
   border-radius: 20px;
   background-color: #fff;
+  margin-top: 5px;
   margin-bottom: 4rem;
   padding-left: 25px;
   font-size: 1.25rem;
@@ -24,6 +25,7 @@ label {
 .search-button {
   font-size: 30px;
   border: none;
+  color: black;
   cursor: pointer;
   background: none;
   margin-bottom: 3.5rem;
